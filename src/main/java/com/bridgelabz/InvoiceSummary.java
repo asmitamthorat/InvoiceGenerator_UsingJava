@@ -1,6 +1,5 @@
 package com.bridgelabz;
 
-import java.util.Objects;
 
 public class InvoiceSummary {
      final int numOfRides;
@@ -23,6 +22,4 @@ public class InvoiceSummary {
                 Double.compare(that.totalFare, totalFare) == 0 &&
                 Double.compare(that.averageFare, averageFare) == 0;
     }
-
-
 }

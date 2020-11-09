@@ -19,23 +19,22 @@ public class InvoiceGenerator {
     public InvoiceSummary calculateFare(Ride[] rides) {
         double totalFare = 0;
         for (Ride ride:rides) {
-            totalFare +=this.calculateFare(ride.distance,ride.time);
+            totalFare +=this.calculateFare(ride.distance,ride.time,ride.preminum);
         }
         return new InvoiceSummary(rides.length,totalFare);
     }
 
     public double calculateFare(double distance, int time,boolean premium) {
         double totalFare = 0;
-        if (true) {
-            totalFare= distance*PREMIUM_COST_PER_KILOMETER+time*PREMIUM_COST_PER_TIME;
-            return Math.max(totalFare,PREMIUM_MINIMUM_FARE);
-
+        double fare=0;
+        if (premium) {
+            fare= distance*PREMIUM_COST_PER_KILOMETER+time*PREMIUM_COST_PER_TIME;
+            fare= Math.max(fare,PREMIUM_MINIMUM_FARE);
         }
         if(!premium){
-            totalFare=calculateFare( distance, time);
+            fare=calculateFare( distance, time);
         }
+        totalFare=totalFare+fare;
         return totalFare;
     }
-
-
 }
