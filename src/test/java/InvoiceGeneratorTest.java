@@ -31,18 +31,19 @@ public class InvoiceGeneratorTest {
 
     @Test
     public void givenMultipleRide_shouldReturnInvoiceSummary(){
-        Ride[] rides={new Ride(2.0,5,false),
-                new Ride(0.1,1, false)};
+        Ride[] rides={new Ride(2.0,5,RideCategories.NORMAL),
+                new Ride(0.1,1, RideCategories.NORMAL)};
         InvoiceSummary Summary =invoiceGenerator.calculateFare(rides);
         InvoiceSummary expectedInvoiceSummary=new InvoiceSummary(2,30);
         Assert.assertEquals(expectedInvoiceSummary,Summary);
     }
 
+
     @Test
     public void givenUserId_shouldReturnInvoiceService(){
         RideRepository[] rideRepositories={
-                new RideRepository(1,new Ride[]{new Ride(2.0,5,true),new Ride(1,1, true)}),
-                new RideRepository(2, new Ride[]{ new Ride(2.0,5, true)})
+                new RideRepository(1,new Ride[]{new Ride(2.0,5,RideCategories.PREMIUM),new Ride(1,1, RideCategories.PREMIUM)}),
+                new RideRepository(2, new Ride[]{ new Ride(2.0,5, RideCategories.PREMIUM)})
         };
         InvoiceService invoiceService=new InvoiceService(Arrays.asList(rideRepositories));
         InvoiceSummary invoiceSummary=invoiceService.getSummary(1);
@@ -54,7 +55,7 @@ public class InvoiceGeneratorTest {
     public void givenDistanceAndTimeForPremium_ShouldReturnFare(){
         double distance= 2.0;
         int time=5;
-        double fare= invoiceGenerator.calculateFare(distance,time,true);
+        double fare= invoiceGenerator.calculateFare(distance,time,RideCategories.PREMIUM);
         Assert.assertEquals(40,fare,0.0001);
     }
 
@@ -62,9 +63,11 @@ public class InvoiceGeneratorTest {
     public void givenFareLessThanPremiumFare_ShouldReturnMinimumFare(){
         double distance=0.1;
         int time=1;
-        double fare= invoiceGenerator.calculateFare(distance,time,true);
+        double fare= invoiceGenerator.calculateFare(distance,time,RideCategories.PREMIUM);
         Assert.assertEquals(20,fare,0.0001);
     }
+
+
 
 
 

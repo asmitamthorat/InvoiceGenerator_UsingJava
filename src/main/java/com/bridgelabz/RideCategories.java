@@ -12,3 +12,5 @@ public enum RideCategories {
         this.minimumFare=minimumFare;
     }
 }
+
+
